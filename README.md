@@ -1,0 +1,1 @@
+Special channel wrap for get results from routines

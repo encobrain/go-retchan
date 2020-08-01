@@ -38,3 +38,7 @@ func (c *Chan) Put (value interface{}) (ret interface{}, err error) {
 
 	return
 }
+
+func (c *Chan) Close () {
+	close(c.put_ch)
+}

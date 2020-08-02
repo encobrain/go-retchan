@@ -13,7 +13,13 @@ func (c *Chan) Handle (handler Handler) {
 			var ret interface{}
 
 			defer func() {
-				if ret == nil { ret = recover() }
+				if ret == nil {
+					ret = recover()
+
+					if ret != nil {
+						ret = NewError(ret, data.errStack)
+					}
+				}
 
 				data.ret<- ret
 			}()
@@ -23,9 +29,10 @@ func (c *Chan) Handle (handler Handler) {
 	}
 }
 
-func (c *Chan) Put (value interface{}) (ret interface{}, err error) {
+func (c *Chan) Put (value interface{}, errStack bool) (ret interface{}, err error) {
 	data := &putData{
 		value,
+		errStack,
 		make(chan interface{}),
 	}
 

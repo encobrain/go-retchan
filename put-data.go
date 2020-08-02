@@ -1,6 +1,7 @@
 package retchan
 
 type putData struct {
-	value 	interface{}
-	ret 	chan interface{}
+	value 		interface{}
+	errStack 	bool
+	ret 		chan interface{}
 }
